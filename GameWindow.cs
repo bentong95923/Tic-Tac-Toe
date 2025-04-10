@@ -116,12 +116,12 @@ namespace TicTacToe
             {
                 case GameStatus.PlayerXWins:
                     playerWins++;
-                    label1.Text = $"Player Wins - {playerWins}";
+                    label3.Text = $"Wins - {playerWins}";
                     message = "Player X wins!";
                     break;
                 case GameStatus.PlayerOWins:
                     aiWins++;
-                    label2.Text = $"AI Wins - {aiWins}";
+                    label4.Text = $"Wins - {aiWins}";
                     message = "AI wins!";
                     break;
                 case GameStatus.Draw:
@@ -146,7 +146,7 @@ namespace TicTacToe
         {
             foreach (var button in buttons)
             {
-                button.Text = "?";
+                button.Text = "";
                 button.Enabled = true;
             }
             playerTurn = Player.X;
@@ -155,16 +155,6 @@ namespace TicTacToe
         private void RestartGame(object sender, EventArgs e)
         {
             ResetGame();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

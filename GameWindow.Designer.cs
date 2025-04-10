@@ -44,6 +44,8 @@
             ComputerMoves = new System.Windows.Forms.Timer(components);
             label3 = new Label();
             label4 = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -56,14 +58,13 @@
             label1.Size = new Size(71, 28);
             label1.TabIndex = 0;
             label1.Text = "Player";
-            label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
             label2.ForeColor = Color.Firebrick;
-            label2.Location = new Point(816, 22);
+            label2.Location = new Point(942, 22);
             label2.Name = "label2";
             label2.Size = new Size(32, 28);
             label2.TabIndex = 1;
@@ -71,97 +72,97 @@
             // 
             // button1
             // 
-            button1.Location = new Point(148, 81);
+            button1.Font = new Font("Segoe UI", 20F);
+            button1.Location = new Point(3, 3);
             button1.Name = "button1";
-            button1.Size = new Size(150, 150);
+            button1.Size = new Size(199, 173);
             button1.TabIndex = 2;
-            button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
             button1.Click += PlayerClick;
             // 
             // button2
             // 
-            button2.Location = new Point(148, 260);
+            button2.Font = new Font("Segoe UI", 20F);
+            button2.Location = new Point(3, 182);
             button2.Name = "button2";
-            button2.Size = new Size(150, 150);
+            button2.Size = new Size(199, 173);
             button2.TabIndex = 3;
-            button2.Text = "button2";
             button2.UseVisualStyleBackColor = true;
             button2.Click += PlayerClick;
             // 
             // button3
             // 
-            button3.Location = new Point(148, 448);
+            button3.Font = new Font("Segoe UI", 20F);
+            button3.Location = new Point(3, 361);
             button3.Name = "button3";
-            button3.Size = new Size(150, 150);
+            button3.Size = new Size(199, 175);
             button3.TabIndex = 4;
-            button3.Text = "button3";
             button3.UseVisualStyleBackColor = true;
             button3.Click += PlayerClick;
             // 
             // button4
             // 
-            button4.Location = new Point(371, 81);
+            button4.Font = new Font("Segoe UI", 20F);
+            button4.Location = new Point(208, 3);
             button4.Name = "button4";
-            button4.Size = new Size(150, 150);
+            button4.Size = new Size(199, 173);
             button4.TabIndex = 5;
-            button4.Text = "button4";
             button4.UseVisualStyleBackColor = true;
             button4.Click += PlayerClick;
             // 
             // button5
             // 
-            button5.Location = new Point(371, 260);
+            button5.Font = new Font("Segoe UI", 20F);
+            button5.Location = new Point(208, 182);
             button5.Name = "button5";
-            button5.Size = new Size(150, 150);
+            button5.Size = new Size(199, 173);
             button5.TabIndex = 6;
-            button5.Text = "button5";
             button5.UseVisualStyleBackColor = true;
             button5.Click += PlayerClick;
             // 
             // button6
             // 
-            button6.Location = new Point(371, 448);
+            button6.Font = new Font("Segoe UI", 20F);
+            button6.Location = new Point(208, 361);
             button6.Name = "button6";
-            button6.Size = new Size(150, 150);
+            button6.Size = new Size(199, 175);
             button6.TabIndex = 7;
-            button6.Text = "button6";
             button6.UseVisualStyleBackColor = true;
             button6.Click += PlayerClick;
             // 
             // button7
             // 
-            button7.Location = new Point(579, 81);
+            button7.Font = new Font("Segoe UI", 20F);
+            button7.Location = new Point(413, 3);
             button7.Name = "button7";
-            button7.Size = new Size(150, 150);
+            button7.Size = new Size(200, 173);
             button7.TabIndex = 8;
-            button7.Text = "button7";
             button7.UseVisualStyleBackColor = true;
             button7.Click += PlayerClick;
             // 
             // button8
             // 
-            button8.Location = new Point(579, 260);
+            button8.Font = new Font("Segoe UI", 20F);
+            button8.Location = new Point(413, 182);
             button8.Name = "button8";
-            button8.Size = new Size(150, 150);
+            button8.Size = new Size(200, 173);
             button8.TabIndex = 9;
-            button8.Text = "button8";
             button8.UseVisualStyleBackColor = true;
             button8.Click += PlayerClick;
             // 
             // button9
             // 
-            button9.Location = new Point(579, 448);
+            button9.Font = new Font("Segoe UI", 20F);
+            button9.Location = new Point(413, 361);
             button9.Name = "button9";
-            button9.Size = new Size(150, 150);
+            button9.Size = new Size(200, 175);
             button9.TabIndex = 10;
-            button9.Text = "button9";
             button9.UseVisualStyleBackColor = true;
             button9.Click += PlayerClick;
             // 
             // button10
             // 
-            button10.Location = new Point(12, 108);
+            button10.Location = new Point(32, 104);
             button10.Name = "button10";
             button10.Size = new Size(100, 42);
             button10.TabIndex = 11;
@@ -184,40 +185,57 @@
             label3.Size = new Size(91, 28);
             label3.TabIndex = 12;
             label3.Text = "Wins - 0";
-            label3.Click += label3_Click;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
             label4.ForeColor = Color.Firebrick;
-            label4.Location = new Point(757, 50);
+            label4.Location = new Point(883, 50);
             label4.Name = "label4";
             label4.Size = new Size(91, 28);
             label4.TabIndex = 13;
             label4.Text = "Wins - 0";
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.Controls.Add(button2, 0, 1);
+            tableLayoutPanel1.Controls.Add(button3, 0, 2);
+            tableLayoutPanel1.Controls.Add(button1, 0, 0);
+            tableLayoutPanel1.Controls.Add(button4, 1, 0);
+            tableLayoutPanel1.Controls.Add(button9, 2, 2);
+            tableLayoutPanel1.Controls.Add(button7, 2, 0);
+            tableLayoutPanel1.Controls.Add(button6, 1, 2);
+            tableLayoutPanel1.Controls.Add(button8, 2, 1);
+            tableLayoutPanel1.Controls.Add(button5, 1, 1);
+            tableLayoutPanel1.Location = new Point(194, 66);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.Size = new Size(616, 539);
+            tableLayoutPanel1.TabIndex = 14;
+            // 
             // GameWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(884, 661);
+            BackColor = Color.LightGray;
+            ClientSize = new Size(1008, 729);
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(button10);
-            Controls.Add(button9);
-            Controls.Add(button8);
-            Controls.Add(button7);
-            Controls.Add(button6);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "GameWindow";
             Text = "Tic Tac Toe";
+            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -239,5 +257,6 @@
         private System.Windows.Forms.Timer ComputerMoves;
         private Label label3;
         private Label label4;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

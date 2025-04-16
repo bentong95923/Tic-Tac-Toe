@@ -1,10 +1,14 @@
 ﻿namespace TicTacToe
 {
-    public enum GameStatus
+    public class GameStatus
     {
-        InProgress,
-        PlayerXWins,
-        PlayerOWins,
-        Draw
+        public GameStatus()
+        {
+            PlayerWins = 0;
+            AiWins = 0;            
+        }
+        public int PlayerWins { get; set; }
+        public int AiWins { get; set; }
+        public Player PlayerTurn { get; set; }
     }
 }

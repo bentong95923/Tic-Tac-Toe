@@ -3,20 +3,20 @@ namespace TicTacToe
     public partial class GameWindow : Form
     {
         List<Button> buttons;
+        List<Label> labels;
         readonly Random random;
-        int playerWins;
-        int aiWins;
-        Player playerTurn;
+        GameStatus gameStatus;
 
         public GameWindow()
         {
             InitializeComponent();
-            LoadButtons();
+            LoadButtonsAndLabels();
             random = new Random();
+            gameStatus = new GameStatus();
             StartGame();
         }
 
-        private void LoadButtons()
+        private void LoadButtonsAndLabels()
         {
             buttons =
             [
@@ -30,101 +30,68 @@ namespace TicTacToe
                 button8,
                 button9
             ];
+
+            labels =
+            [
+                label1,
+                label2,
+                label3,
+                label4
+            ];
         }
 
         private void ComputerMove(object sender, EventArgs e)
         {
             var buttonToClick = buttons
-                .Where(b => b.Enabled)
+                .Where(b => b.Text == "")
                 .OrderBy(b => random.Next())
                 .First();
-            buttonToClick.Text = playerTurn.ToString();
-            buttonToClick.Enabled = false;
-            var status = ShouldEndGame();
+            buttonToClick.Text = gameStatus.PlayerTurn.ToString();
+            LockButtons();
+            var state = GameLogic.CheckGameState(buttons);
             ComputerMoves.Stop();
-            if (status == GameStatus.InProgress)
+            if (state == GameState.InProgress)
             {
-                playerTurn = Player.X;
+                gameStatus.PlayerTurn = Player.X;
+                UnlockButtons();
                 return;
             }
-            EndGame(status);
+            EndGame(state);
         }
 
         private void PlayerClick(object sender, EventArgs e)
         {
             var buttonClicked = (Button)sender;
-            buttonClicked.Text = playerTurn.ToString();
-            buttonClicked.Enabled = false;
-            var status = ShouldEndGame();
-            if (status == GameStatus.InProgress)
+            buttonClicked.Text = gameStatus.PlayerTurn.ToString();
+            LockButtons();
+            var state = GameLogic.CheckGameState(buttons);
+            if (state == GameState.InProgress)
             {
-                playerTurn = Player.O;
+                gameStatus.PlayerTurn = Player.O;
                 ComputerMoves.Start();
                 return;
             }
-            EndGame(status);
+            EndGame(state);
         }
 
-        private GameStatus ShouldEndGame()
+        private void EndGame(GameState status)
         {
-            GameStatus status = GameStatus.InProgress;
-            if (IsPlayerWin(Player.X))
-            {
-                status = GameStatus.PlayerXWins;
-            }
-            else if (IsPlayerWin(Player.O))
-            {
-                status = GameStatus.PlayerOWins;
-            }
-            else if (buttons.All(b => !b.Enabled))
-            {
-                status = GameStatus.Draw;
-            }
-            return status;
-        }
-
-        private bool IsPlayerWin(Player player)
-        {
-            var playerText = player.ToString();
-            return
-            (
-                // Rows
-                button1.Text == playerText && button2.Text == playerText && button3.Text == playerText ||
-                button4.Text == playerText && button5.Text == playerText && button6.Text == playerText ||
-                button7.Text == playerText && button8.Text == playerText && button9.Text == playerText ||
-
-                // Columns
-                button1.Text == playerText && button4.Text == playerText && button7.Text == playerText ||
-                button2.Text == playerText && button5.Text == playerText && button8.Text == playerText ||
-                button3.Text == playerText && button6.Text == playerText && button9.Text == playerText ||
-
-                // Diagonals
-                button1.Text == playerText && button5.Text == playerText && button9.Text == playerText ||
-                button3.Text == playerText && button5.Text == playerText && button7.Text == playerText
-            );
-        }
-
-        private void EndGame(GameStatus status)
-        {
-            foreach (var button in buttons)
-            {
-                button.Enabled = false;
-            }
+            LockButtons();
 
             var message = "";
             switch (status)
             {
-                case GameStatus.PlayerXWins:
-                    playerWins++;
-                    label3.Text = $"Wins - {playerWins}";
+                case GameState.PlayerXWins:
+                    gameStatus.PlayerWins++;
+                    label3.Text = $"Wins - {gameStatus.PlayerWins}";
                     message = "Player X wins!";
                     break;
-                case GameStatus.PlayerOWins:
-                    aiWins++;
-                    label4.Text = $"Wins - {aiWins}";
+                case GameState.PlayerOWins:
+                    gameStatus.AiWins++;
+                    label4.Text = $"Wins - {gameStatus.AiWins}";
                     message = "AI wins!";
                     break;
-                case GameStatus.Draw:
+                case GameState.Draw:
                     message = "It's a draw!";
                     break;
                 default:
@@ -137,24 +104,47 @@ namespace TicTacToe
 
         private void StartGame()
         {
-            playerWins = 0;
-            aiWins = 0;
             ResetGame();
         }
 
         private void ResetGame()
         {
+            if (ComputerMoves.Enabled)
+            {
+                ComputerMoves.Stop();
+            }
             foreach (var button in buttons)
             {
                 button.Text = "";
                 button.Enabled = true;
             }
-            playerTurn = Player.X;
+            // Randomly select the starting player
+            gameStatus.PlayerTurn = (Player)random.Next(0, Enum.GetValues<Player>().Length);
+            if (gameStatus.PlayerTurn == Player.O)
+            {
+                ComputerMoves.Start();
+            }
         }
 
         private void RestartGame(object sender, EventArgs e)
         {
             ResetGame();
+        }
+
+        private void LockButtons()
+        {
+            foreach (var button in buttons)
+            {
+                button.Enabled = false;
+            }
+        }
+
+        private void UnlockButtons()
+        {
+            foreach (var button in buttons)
+            {
+                button.Enabled = true;
+            }
         }
     }
 }
